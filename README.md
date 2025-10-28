@@ -36,13 +36,6 @@ traj2relax/
 
 ---
 
-## ⚙️ Requirements
-```bash
-pip install -r requirements.txt
-```
-
----
-
 ## 📂 Data Format
 Data should be stored in LMDB:
 ```
