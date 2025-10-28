@@ -1,0 +1,44 @@
+train:
+  _target_: train.Runner
+  data_path : "data"
+  save_path : "exp"
+  local_result_path: "result"
+  lr: 1e-4
+  max_lr: 1e-4
+  weight_decay: 1e-4
+  batch_size: 64
+  epoch: 2000
+  save_per_epoch: 1
+  log_loss_per_step: 50
+  redis_port: 6380
+  weights: 
+    pos: 1.0
+    e: 0.000025
+
+
+gemnet:
+  _target_: model.gemnet.gemnet.GemNetTDenoiser
+  hidden_dim: 256
+  max_neighbors: 50
+  max_cell_images_per_dim: 5
+  radius: 7.0
+  num_blocks: 6
+  otf_graph: True
+  concat_angles_to_edges: true
+  concat_lengths_to_edges: true
+  include_charge: false
+
+noiser:
+  _target_: noiser.Noiser
+  timesteps: 20
+  gamma: 0.2
+  alpha: 1.0
+
+sampler:
+  _target_: sample.Sampler
+  batch_size: 100
+  repeat: 5
+  perturb_scale: 1.5
+  data_path: "data/test.lmdb"
+  model_dir: "exp"
+  save_dir: "sample"
